@@ -159,73 +159,78 @@ function Table({
 
         {FineprintTop}
 
-        <table className="table fadeInUp" style={{animationDelay: '1.8s'}}>
-          <thead>
-            <tr>
-              <th className="state-heading" onClick={() => handleSort('state')}>
-                <div className="heading-content">
-                  <abbr title="State">{t('State/UT')}</abbr>
-                  <div
-                    style={{
-                      display:
-                        sortData.sortColumn === 'state' ? 'initial' : 'none',
-                    }}
-                  >
+        <div className="table-parent">
+          <table className="table fadeInUp" style={{animationDelay: '1.8s'}}>
+            <thead>
+              <tr>
+                <th
+                  className="state-heading"
+                  onClick={() => handleSort('state')}
+                >
+                  <div className="heading-content">
+                    <abbr title="State">{t('State/UT')}</abbr>
                     <div
-                      className={classnames(
-                        {'arrow-up': sortData.isAscending},
-                        {'arrow-down': !sortData.isAscending}
-                      )}
-                    />
+                      style={{
+                        display:
+                          sortData.sortColumn === 'state' ? 'initial' : 'none',
+                      }}
+                    >
+                      <div
+                        className={classnames(
+                          {'arrow-up': sortData.isAscending},
+                          {'arrow-down': !sortData.isAscending}
+                        )}
+                      />
+                    </div>
                   </div>
-                </div>
-              </th>
-              {STATE_ROW_STATISTICS.map((statistic, index) => (
-                <StateHeaderCell
-                  key={index}
-                  handleSort={handleSort}
-                  sortData={sortData}
-                  statistic={statistic}
+                </th>
+                {STATE_ROW_STATISTICS.map((statistic, index) => (
+                  <StateHeaderCell
+                    key={index}
+                    handleSort={handleSort}
+                    sortData={sortData}
+                    statistic={statistic}
+                  />
+                ))}
+              </tr>
+            </thead>
+
+            {states && (
+              <tbody>
+                {sortedStates.map((state, index) => {
+                  if (state.confirmed > 0 && state.statecode !== 'TT') {
+                    return (
+                      <Row
+                        key={state.statecode}
+                        state={state}
+                        districts={districts[state.state]?.districtData}
+                        zones={zones[state.state]}
+                        regionHighlighted={
+                          equal(regionHighlighted?.state, state.state)
+                            ? regionHighlighted
+                            : null
+                        }
+                        onHighlightState={onHighlightState}
+                        onHighlightDistrict={onHighlightDistrict}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+              </tbody>
+            )}
+
+            {states && (
+              <tbody>
+                <Row
+                  key={0}
+                  state={states[0]}
+                  onHighlightState={onHighlightState}
                 />
-              ))}
-            </tr>
-          </thead>
-
-          {states && (
-            <tbody>
-              {sortedStates.map((state, index) => {
-                if (state.confirmed > 0 && state.statecode !== 'TT') {
-                  return (
-                    <Row
-                      key={state.statecode}
-                      state={state}
-                      districts={districts[state.state]?.districtData}
-                      zones={zones[state.state]}
-                      regionHighlighted={
-                        equal(regionHighlighted?.state, state.state)
-                          ? regionHighlighted
-                          : null
-                      }
-                      onHighlightState={onHighlightState}
-                      onHighlightDistrict={onHighlightDistrict}
-                    />
-                  );
-                }
-                return null;
-              })}
-            </tbody>
-          )}
-
-          {states && (
-            <tbody>
-              <Row
-                key={0}
-                state={states[0]}
-                onHighlightState={onHighlightState}
-              />
-            </tbody>
-          )}
-        </table>
+              </tbody>
+            )}
+          </table>
+        </div>
         {states && FineprintBottom}
       </React.Fragment>
     );

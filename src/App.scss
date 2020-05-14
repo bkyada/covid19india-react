@@ -30,6 +30,7 @@ $yellow-mid: #ffc10799;
 $yellow-light-opaque: #fff7e0;
 $green: #28a745;
 $green-light: #28a74520;
+$green-light-opaque: #d9ece1;
 $green-hover: #28a74530;
 $green-mid: #28a74599;
 $teal: #20c997;
@@ -39,6 +40,7 @@ $gray: #6c757d;
 $gray-light: #6c757d10;
 $gray-light-opaque: #f6f6f7;
 $gray-hover: #6c757d20;
+$gray-hover-opaque: #edeeef;
 $gray-mid: #6c757d99;
 $gray-dark: #343a40;
 $gray-opaque: #f1f1f1;
@@ -1839,6 +1841,10 @@ abbr {
   margin-bottom: 1rem;
 }
 
+.table-parent {
+  overflow-x: scroll;
+}
+
 table {
   align-self: center;
   border-collapse: separate;
@@ -1859,9 +1865,14 @@ table {
       cursor: pointer;
       padding: .5rem;
       position: sticky !important;
-      top: 5px;
+      top: 0;
       transition: all .1s ease-in-out;
       z-index: 99;
+
+      &.state-heading {
+        left: 0;
+        z-index: 100;
+      }
 
       &:hover {
         background: #ecedee;
@@ -1915,12 +1926,30 @@ table {
     tr {
       cursor: pointer;
 
+      td {
+        &:first-child {
+          background: $white;
+        }
+      }
+
       &:nth-child(odd) {
         background: $gray-light;
+
+        td {
+          &:first-child {
+            background: $gray-light-opaque;
+          }
+        }
       }
 
       &.is-highlighted {
         background: $gray-hover !important;
+
+        td {
+          &:first-child {
+            background: $gray-hover-opaque;
+          }
+        }
       }
 
       &.is-odd {
@@ -1929,6 +1958,12 @@ table {
 
       &.is-total {
         background: $gray-hover;
+
+        td {
+          &:first-child {
+            background: $gray-hover-opaque;
+          }
+        }
       }
 
       &.is-spacer {
@@ -1941,6 +1976,12 @@ table {
 
       &:hover {
         background: $gray-hover !important;
+
+        td {
+          &:first-child {
+            background: $gray-hover-opaque;
+          }
+        }
 
         .dropdown {
           background: $gray-hover;
@@ -1956,7 +1997,9 @@ table {
 
       &:first-child {
         font-weight: 600;
+        left: 0;
         max-width: 7.5rem !important;
+        position: sticky;
         text-align: left;
         word-wrap: break-word !important;
       }
@@ -2012,7 +2055,7 @@ table {
       }
 
       &.is-Orange {
-        background: $yellow-light;
+        background: $yellow-light-opaque !important;
         border-left: 5px solid $orange-mid;
         color: $orange;
 
@@ -2022,7 +2065,7 @@ table {
       }
 
       &.is-Red {
-        background: $cherry-light;
+        background: $cherry-light-opaque !important;
         border-left: 5px solid $cherry-mid;
         color: $cherry;
 
@@ -2032,7 +2075,7 @@ table {
       }
 
       &.is-Green {
-        background: $green-light;
+        background: $green-light-opaque !important;
         border-left: 5px solid $green-mid;
         color: $green;
 
@@ -2123,6 +2166,10 @@ table {
         font-size: .75rem;
         font-weight: 900;
         padding: .45rem;
+
+        &:first-child {
+          background: $gray-hover-opaque;
+        }
 
         .heading-content {
           align-items: center;
@@ -5371,8 +5418,10 @@ footer {
   }
 
   table {
-    th {
-      background: #1e1e30 !important;
+    thead {
+      th {
+        background: #1e1e30 !important;
+      }
     }
 
     .is-odd {

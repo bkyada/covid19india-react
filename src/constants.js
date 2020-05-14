@@ -3,6 +3,10 @@ export const STATE_ROW_STATISTICS = [
   'active',
   'recovered',
   'deaths',
+  'confirmed',
+  'active',
+  'recovered',
+  'deaths',
 ];
 export const DISTRICT_ROW_STATISTICS = [
   'confirmed',
