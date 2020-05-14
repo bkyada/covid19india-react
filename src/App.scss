@@ -1842,8 +1842,10 @@ abbr {
 }
 
 .table-parent {
-  max-height: 100vh;
-  overflow: scroll;
+  @media (max-width: 769px) {
+    max-height: 100vh;
+    overflow: scroll;
+  }
 }
 
 table {
@@ -1934,13 +1936,11 @@ table {
       }
 
       &:nth-child(odd) {
-        &:not(.is-total) {
-          background: $gray-light;
+        background: $gray-light;
 
-          td {
-            &:first-child {
-              background: $gray-light-opaque;
-            }
+        td {
+          &:first-child {
+            background: $gray-light-opaque;
           }
         }
       }
@@ -1963,9 +1963,9 @@ table {
         background: $gray-hover;
 
         td {
-          background: $gray-hover-opaque;
-          bottom: 0;
-          position: sticky;
+          &:first-child {
+            background: $gray-hover-opaque;
+          }
         }
       }
 
