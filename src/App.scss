@@ -1842,7 +1842,8 @@ abbr {
 }
 
 .table-parent {
-  overflow-x: scroll;
+  max-height: 100vh;
+  overflow: scroll;
 }
 
 table {
@@ -1933,11 +1934,13 @@ table {
       }
 
       &:nth-child(odd) {
-        background: $gray-light;
+        &:not(.is-total) {
+          background: $gray-light;
 
-        td {
-          &:first-child {
-            background: $gray-light-opaque;
+          td {
+            &:first-child {
+              background: $gray-light-opaque;
+            }
           }
         }
       }
@@ -1960,9 +1963,9 @@ table {
         background: $gray-hover;
 
         td {
-          &:first-child {
-            background: $gray-hover-opaque;
-          }
+          background: $gray-hover-opaque;
+          bottom: 0;
+          position: sticky;
         }
       }
 
@@ -2002,6 +2005,7 @@ table {
         position: sticky;
         text-align: left;
         word-wrap: break-word !important;
+        z-index: 1;
       }
 
       .delta {
